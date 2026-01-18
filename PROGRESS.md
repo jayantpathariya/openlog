@@ -11,8 +11,8 @@
 | Phase                        | Status         | Progress |
 | ---------------------------- | -------------- | -------- |
 | Phase 1: Foundation          | ✅ Complete    | 100%     |
-| Phase 2: Authentication      | 🟡 In Progress | 90%      |
-| Phase 3: Core Logging        | 🔴 Not Started | 0%       |
+| Phase 2: Authentication      | ✅ Complete    | 100%     |
+| Phase 3: Core Logging        | 🟡 In Progress | 90%      |
 | Phase 4: Project Management  | 🔴 Not Started | 0%       |
 | Phase 5: Log Explorer        | 🔴 Not Started | 0%       |
 | Phase 6: Analytics           | 🔴 Not Started | 0%       |
@@ -22,61 +22,45 @@
 | Phase 10: Plugin System      | 🔴 Not Started | 0%       |
 | Phase 11: Documentation      | 🔴 Not Started | 0%       |
 
-**Total Progress**: 1/11 Phases Complete, 1 In Progress
+**Total Progress**: 2/11 Phases Complete, 1 In Progress
 
 ---
 
-## 📝 Detailed Phase Log
+## 📝 Commits
 
-### Phase 1: Foundation ✅
-
-**Status**: ✅ Complete  
-**Commit**: `546ae00` - chore: initial project setup
-
-| Task                           | Status  |
-| ------------------------------ | ------- |
-| Initialize Git repository      | ✅ Done |
-| Initialize Turborepo with pnpm | ✅ Done |
-| Set up apps/server (Hono.js)   | ✅ Done |
-| Set up apps/web (Next.js 16)   | ✅ Done |
-| Configure Drizzle ORM          | ✅ Done |
-| Set up Docker Compose          | ✅ Done |
-| Configure linting/formatting   | ✅ Done |
-| Set up Vitest                  | ✅ Done |
-| Create shared package          | ✅ Done |
+| Commit    | Phase | Description                     |
+| --------- | ----- | ------------------------------- |
+| `546ae00` | 1     | chore: initial project setup    |
+| `b4ada64` | 2     | feat: add authentication system |
 
 ---
 
-### Phase 2: Authentication 🟡
-
-**Status**: 🟡 In Progress  
-**Target Commit**: `feat: add authentication system`
-
-| Task                      | Status     | Notes               |
-| ------------------------- | ---------- | ------------------- |
-| Install Better Auth       | ✅ Done    | Server + Web        |
-| Create login page         | ✅ Done    | Dark mode UI        |
-| Create register page      | ✅ Done    | Password validation |
-| First-user-is-admin logic | ✅ Done    | Database hook       |
-| Session management        | ✅ Done    | Cookie-based        |
-| Protected routes          | ✅ Done    | Dashboard redirect  |
-| Auth tests                | ⬜ Pending |                     |
-
----
-
-## 📦 Workspace Structure
+## 📦 Workspace Structure (6 packages)
 
 ```
 openlog/
 ├── apps/
-│   ├── server/          # Hono.js + Better Auth
+│   ├── server/          # Hono.js + Better Auth + Drizzle
 │   └── web/             # Next.js 16 + shadcn/ui
 ├── packages/
-│   └── shared/          # Types & Zod validators
-├── turbo.json
-├── pnpm-workspace.yaml
-└── docker-compose.yml
+│   ├── shared/          # Types & Zod validators
+│   ├── sdk-winston/     # Winston transport
+│   └── sdk-pino/        # Pino transport
 ```
+
+---
+
+## 🔌 API Endpoints
+
+| Method | Path                               | Description          |
+| ------ | ---------------------------------- | -------------------- |
+| POST   | `/api/ingest`                      | Single log ingestion |
+| POST   | `/api/ingest/batch`                | Batch log ingestion  |
+| GET    | `/api/projects`                    | List user projects   |
+| POST   | `/api/projects`                    | Create project       |
+| PATCH  | `/api/projects/:id`                | Update project       |
+| DELETE | `/api/projects/:id`                | Delete project       |
+| POST   | `/api/projects/:id/regenerate-key` | Regenerate API key   |
 
 ---
 
@@ -84,18 +68,23 @@ openlog/
 
 ### [Unreleased]
 
-#### Phase 2 - Authentication
+#### Phase 3 - Core Logging
 
-- Better Auth integration with Drizzle adapter
-- Login/Register pages with dark mode UI
-- First-user-is-admin automatic promotion
-- Session-protected dashboard page
-- React Query + Sonner providers
+- Log ingestion API (single + batch)
+- Projects CRUD API with API key management
+- Winston transport SDK with batching/retry
+- Pino transport SDK with pino-abstract-transport
 
-#### Phase 1 - Foundation (Committed)
+#### Phase 2 (Committed)
 
-- Turborepo monorepo with pnpm workspaces
-- Hono.js server with complete database schema
-- Next.js 16 frontend with 21 shadcn/ui components
-- Shared package with types and Zod validators
-- Docker Compose for PostgreSQL and Redis
+- Better Auth with Drizzle adapter
+- Login/Register pages with dark mode
+- First-user-is-admin logic
+- Session-protected dashboard
+
+#### Phase 1 (Committed)
+
+- Turborepo monorepo setup
+- Hono.js server with database schema
+- Next.js 16 frontend with shadcn/ui
+- Docker Compose (PostgreSQL + Redis)

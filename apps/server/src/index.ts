@@ -3,6 +3,8 @@ import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { logger } from "hono/logger";
 import { auth } from "./auth";
+import ingestRoutes from "./routes/ingest";
+import projectRoutes from "./routes/projects";
 
 // Types for context variables
 type Variables = {
@@ -35,10 +37,14 @@ app.get("/health", (c) => {
   return c.json({ status: "ok", timestamp: new Date().toISOString() });
 });
 
-// Better Auth routes - handles /api/auth/*
+// Better Auth routes
 app.on(["POST", "GET"], "/api/auth/**", (c) => {
   return auth.handler(c.req.raw);
 });
+
+// API Routes
+app.route("/api/ingest", ingestRoutes);
+app.route("/api/projects", projectRoutes);
 
 // Start server
 const port = Number(process.env.PORT) || 4000;
