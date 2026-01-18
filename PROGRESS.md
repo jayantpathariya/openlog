@@ -10,8 +10,8 @@
 
 | Phase                        | Status         | Progress |
 | ---------------------------- | -------------- | -------- |
-| Phase 1: Foundation          | 🟡 In Progress | 90%      |
-| Phase 2: Authentication      | 🔴 Not Started | 0%       |
+| Phase 1: Foundation          | ✅ Complete    | 100%     |
+| Phase 2: Authentication      | 🟡 In Progress | 90%      |
 | Phase 3: Core Logging        | 🔴 Not Started | 0%       |
 | Phase 4: Project Management  | 🔴 Not Started | 0%       |
 | Phase 5: Log Explorer        | 🔴 Not Started | 0%       |
@@ -22,28 +22,45 @@
 | Phase 10: Plugin System      | 🔴 Not Started | 0%       |
 | Phase 11: Documentation      | 🔴 Not Started | 0%       |
 
-**Total Progress**: 1/11 Phases In Progress
+**Total Progress**: 1/11 Phases Complete, 1 In Progress
 
 ---
 
 ## 📝 Detailed Phase Log
 
-### Phase 1: Foundation
+### Phase 1: Foundation ✅
+
+**Status**: ✅ Complete  
+**Commit**: `546ae00` - chore: initial project setup
+
+| Task                           | Status  |
+| ------------------------------ | ------- |
+| Initialize Git repository      | ✅ Done |
+| Initialize Turborepo with pnpm | ✅ Done |
+| Set up apps/server (Hono.js)   | ✅ Done |
+| Set up apps/web (Next.js 16)   | ✅ Done |
+| Configure Drizzle ORM          | ✅ Done |
+| Set up Docker Compose          | ✅ Done |
+| Configure linting/formatting   | ✅ Done |
+| Set up Vitest                  | ✅ Done |
+| Create shared package          | ✅ Done |
+
+---
+
+### Phase 2: Authentication 🟡
 
 **Status**: 🟡 In Progress  
-**Target Commit**: `chore: initial project setup`
+**Target Commit**: `feat: add authentication system`
 
-| Task                           | Status  | Notes                          |
-| ------------------------------ | ------- | ------------------------------ |
-| Initialize Git repository      | ✅ Done |                                |
-| Initialize Turborepo with pnpm | ✅ Done | 4 workspace projects           |
-| Set up apps/server (Hono.js)   | ✅ Done | With Drizzle schema            |
-| Set up apps/web (Next.js 16)   | ✅ Done | With shadcn/ui (21 components) |
-| Configure Drizzle ORM          | ✅ Done | PostgreSQL schema ready        |
-| Set up Docker Compose          | ✅ Done | PostgreSQL 16 + Redis 7        |
-| Configure linting/formatting   | ✅ Done | Prettier, EditorConfig         |
-| Set up Vitest                  | ✅ Done | vitest.config.ts created       |
-| Create shared package          | ✅ Done | Types + Validators             |
+| Task                      | Status     | Notes               |
+| ------------------------- | ---------- | ------------------- |
+| Install Better Auth       | ✅ Done    | Server + Web        |
+| Create login page         | ✅ Done    | Dark mode UI        |
+| Create register page      | ✅ Done    | Password validation |
+| First-user-is-admin logic | ✅ Done    | Database hook       |
+| Session management        | ✅ Done    | Cookie-based        |
+| Protected routes          | ✅ Done    | Dashboard redirect  |
+| Auth tests                | ⬜ Pending |                     |
 
 ---
 
@@ -52,20 +69,14 @@
 ```
 openlog/
 ├── apps/
-│   ├── server/          # Hono.js backend
-│   └── web/             # Next.js 16 frontend
+│   ├── server/          # Hono.js + Better Auth
+│   └── web/             # Next.js 16 + shadcn/ui
 ├── packages/
-│   └── shared/          # Types & validators
-├── turbo.json           # Turborepo config
-├── pnpm-workspace.yaml  # Workspace config
-└── docker-compose.yml   # PostgreSQL + Redis
+│   └── shared/          # Types & Zod validators
+├── turbo.json
+├── pnpm-workspace.yaml
+└── docker-compose.yml
 ```
-
----
-
-## 🧩 shadcn/ui Components Installed
-
-button, card, input, label, sonner, dialog, dropdown-menu, form, avatar, separator, sheet, command, table, tabs, badge, select, skeleton, scroll-area, tooltip, popover, checkbox
 
 ---
 
@@ -73,12 +84,18 @@ button, card, input, label, sonner, dialog, dropdown-menu, form, avatar, separat
 
 ### [Unreleased]
 
-#### Added
+#### Phase 2 - Authentication
+
+- Better Auth integration with Drizzle adapter
+- Login/Register pages with dark mode UI
+- First-user-is-admin automatic promotion
+- Session-protected dashboard page
+- React Query + Sonner providers
+
+#### Phase 1 - Foundation (Committed)
 
 - Turborepo monorepo with pnpm workspaces
-- Hono.js server with Drizzle ORM schema
+- Hono.js server with complete database schema
 - Next.js 16 frontend with 21 shadcn/ui components
 - Shared package with types and Zod validators
 - Docker Compose for PostgreSQL and Redis
-- Configuration: Prettier, EditorConfig, .gitignore
-- Vitest test configuration

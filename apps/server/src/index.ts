@@ -2,8 +2,15 @@ import { serve } from "@hono/node-server";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { logger } from "hono/logger";
+import { auth } from "./auth";
 
-const app = new Hono();
+// Types for context variables
+type Variables = {
+  user: typeof auth.$Infer.Session.user | null;
+  session: typeof auth.$Infer.Session.session | null;
+};
+
+const app = new Hono<{ Variables: Variables }>();
 
 // Middleware
 app.use("*", logger());
@@ -26,6 +33,11 @@ app.get("/", (c) => {
 
 app.get("/health", (c) => {
   return c.json({ status: "ok", timestamp: new Date().toISOString() });
+});
+
+// Better Auth routes - handles /api/auth/*
+app.on(["POST", "GET"], "/api/auth/**", (c) => {
+  return auth.handler(c.req.raw);
 });
 
 // Start server
