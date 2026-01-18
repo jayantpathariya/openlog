@@ -1,0 +1,31 @@
+{
+  "name": "openlog",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Developer-first self-hosted logging platform",
+  "author": "Jayant Pathariya",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jayantpathariya/openlog"
+  },
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "lint": "turbo lint",
+    "test": "turbo test",
+    "typecheck": "turbo typecheck",
+    "db:generate": "turbo db:generate",
+    "db:migrate": "turbo db:migrate",
+    "db:push": "turbo db:push",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\""
+  },
+  "devDependencies": {
+    "prettier": "^3.8.0",
+    "turbo": "^2.7.5"
+  },
+  "packageManager": "pnpm@10.28.0",
+  "engines": {
+    "node": ">=20"
+  }
+}
